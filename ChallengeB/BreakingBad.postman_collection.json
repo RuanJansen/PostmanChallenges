@@ -1,0 +1,139 @@
+{
+	"info": {
+		"_postman_id": "3473bdca-28e6-4bf4-971f-50328f45ea69",
+		"name": "BreakingBad",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22850964"
+	},
+	"item": [
+		{
+			"name": "Air_Date",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();",
+							"var date = \"08-19\"",
+							"",
+							"for(episode of response){",
+							"    if(episode.air_date.includes(date)){",
+							"        console.log(episode.title)",
+							"    }",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BreakingBadBaseURL}}episodes",
+					"host": [
+						"{{BreakingBadBaseURL}}episodes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Appeared in...",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();",
+							"",
+							"for(appeared of response){",
+							"    if(appeared.better_call_saul_appearance != 0){",
+							"        console.log(appeared.name);",
+							"        break;",
+							"    }",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BreakingBadBaseURL}}characters",
+					"host": [
+						"{{BreakingBadBaseURL}}characters"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deaths",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();",
+							"let index = 0",
+							"for(deaths of response){",
+							"    if(deaths.number_of_deaths > index){",
+							"        index = deaths.number_of_deaths;",
+							"    }",
+							"    if(deaths.number_of_deaths === index){",
+							"        console.log(\"Season: \", deaths.season)",
+							"    }",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BreakingBadBaseURL}}deaths",
+					"host": [
+						"{{BreakingBadBaseURL}}deaths"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Portrayed by...",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();",
+							"const portrayedBy = \"Patrick Fabian\"",
+							"for(character of response){",
+							"    if(character.portrayed === portrayedBy){",
+							"        console.log(character.name)",
+							"    }",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BreakingBadBaseURL}}characters",
+					"host": [
+						"{{BreakingBadBaseURL}}characters"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
